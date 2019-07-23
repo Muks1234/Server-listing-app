@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
+import React,{Component} from 'react';
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import './App.css';
+import CreateComponent from './components/CreateComponent';
+import EditComponent from './components/EditComponent';
+import IndexComponent from './components/IndexComponent';
+import Home from './components/Home'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component{
+render(){
+  return(
+    <Router>
+        <div className="container">
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a href="/" className="navbar-brand" style={{fontFamily:'Russo One',color:'grey'}}>React Express App</a>
+              <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item">
+                  <Link to={"/"} className="nav-link">Home</Link>
+                </li>
+                 <li className="nav-item">
+                  <Link to={"/create"} className="nav-link">Create</Link>
+                 </li>
+                <li className="nav-item">
+                  <Link to={'/index'} className="nav-link">List</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={'/edit/:id'} className="nav-link">Edit</Link>
+                </li>
+              </ul>
+              </div>
+          </nav>
+          <Switch>
+            <Route exact path='/create' component={CreateComponent}/>
+            <Route path='/edit/:id' component={EditComponent}/>
+            <Route path='/index' component={IndexComponent}/>
+            <Route exact path='/' component={Home}/>
+          </Switch>
+        </div>
+    </Router>
+  )
+}
 }
 
 export default App;
